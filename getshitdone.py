@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+import sys
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -32,4 +33,4 @@ if __name__ == '__main__':
     except Exception:
         pass
 
-    app.run(debug=True)
+    app.run(debug="--debug" in sys.argv)
