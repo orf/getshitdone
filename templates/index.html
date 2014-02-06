@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block tail %}
+    <script>
+        $(document).ready(function(){
+            $(".submission").on("click", function(){
+                var submission_text = $(this).find(".submission_text");
+                console.log(submission_text);
+                if (submission_text.hasClass("hide")) {
+                    submission_text.removeClass("hide");
+                } else {
+                    submission_text.addClass("hide");
+                }
+            })
+        })
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="large-4 columns">
+            <form>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <input type="text" placeholder="What shit do you want done?">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <textarea placeholder="Anything more to say?"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <a href="#" class="button alert radius">Submit Anonymously</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="large-8 columns results_container">
+            {% for id in range(1, 30) %}
+
+                <div class="row submission" id="{{ id }}">
+
+                    <div class="small-12 columns">
+                        <!-- Submission title etc -->
+                        <div class="row">
+                            <div class="small-1 columns result">
+                                <div>#{{ id }}</div>
+                            </div>
+                            <div class="small-9 columns result">
+                                <div>{{ lipsum(1, False, min=3, max=20)|truncate(150) }}</div>
+                            </div>
+                            <div class="small-2 columns">
+
+                                <div class="row">
+                                    <div class="large-6 columns vote_up">
+                                        <i class="fi-arrow-up"></i> {{ range(0, 100)|random }}
+                                    </div>
+
+                                    <div class="large-6 columns vote_down">
+                                        <i class="fi-arrow-down"></i> {{ range(0, 100)|random }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submission text -->
+                        <div class="row submission_text hide">
+                            <div class="small-12 columns">
+                                {{ lipsum(range(0,3)|random) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

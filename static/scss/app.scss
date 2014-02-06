@@ -1,0 +1,87 @@
+@import "settings";
+@import "foundation";
+
+
+body {
+  background-color: #E4FAE3;
+}
+
+@font-face {
+  font-family: madness;
+  src: url("../fonts/madness.ttf");
+}
+
+.header_logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navigation_header {
+  font-family: madness;
+}
+
+.navigation_header .header_text {
+  text-align: center;
+  font-size: 50px;
+}
+
+.navigation_header .nav_link {
+  font-size: 30px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0;
+
+  @media #{$small-only} {
+    font-size: 25px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+.center_middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.navigation_header .nav_container {
+  @extend .center_middle;
+}
+
+.main_content {
+  margin-top: 20px;
+}
+
+.results_container > div:nth-child(odd){
+  background-color: #BCE6BB;
+}
+
+.results_container > div:nth-child(even){
+  background-color: #D7EBD6;
+}
+
+.result div {
+  @extend .center_middle;
+  height: 50px;
+}
+
+.submission .submission_text {
+  min-height: 20px
+}
+
+
+.vote_up {
+  i {
+    font-size: 30px;
+  }
+
+  color: green;
+}
+
+.vote_down {
+  i {
+    font-size: 30px;
+  }
+
+  color: red;
+}

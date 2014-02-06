@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Shit Done</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/foundation-icons/foundation-icons.css') }}">
+
+    <script src="{{ url_for('static', filename='js/vendor/modernizr.js') }}"></script>
+</head>
+<body>
+
+    <div class="fixed">
+        <nav class="top-bar navigation_header" data-topbar>
+
+            <div class="row">
+                <div class="large-4 medium-1 columns hide-for-medium-down">
+                    <div class="row">
+                        <div class="large-6 columns nav_container">
+                            <p href="#" class="nav_link">Policies</p>
+                        </div>
+                        <div class="large-6 columns nav_container">
+                            <p href="#" class="nav_link">About Me</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="large-4 medium-10 columns">
+                    <div class="header_text">
+                        Get Shit Done
+                    </div>
+                </div>
+
+                <div class="large-4 medium-1 columns hide-for-medium-down">
+                    <div class="row">
+                        <div class="large-6 columns nav_container">
+                            <p href="#" class="nav_link">Facebook</p>
+                        </div>
+                        <div class="large-6 columns nav_container">
+                            <p href="#" class="nav_link">Twitter</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row main_content">
+        <div class="large-12 columns">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>
+    <script>
+        $(document).foundation();
+    </script>
+
+    {% block tail %}
+    {% endblock %}
+</body>
+</html>
