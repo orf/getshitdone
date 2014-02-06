@@ -2,3 +2,7 @@
 /.sass-cache/*
 *.DS_Store
 /stylesheets/*
+/.idea/*
+/.bowerrc
+test.db
+Thumbs.db
