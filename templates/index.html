@@ -5,54 +5,53 @@
         $(document).ready(function(){
             $(".submission").on("click", function(){
                 var submission_text = $(this).find(".submission_text");
-                console.log(submission_text);
                 if (submission_text.hasClass("hide")) {
                     submission_text.removeClass("hide");
                 } else {
                     submission_text.addClass("hide");
                 }
-            })
-        })
+            });
+        });
     </script>
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="large-4 columns">
-            <form>
+            <form method="POST" action="{{ url_for('new_post') }}">
                 <div class="row">
                     <div class="large-12 columns">
-                        <input type="text" placeholder="What shit do you want done?">
+                        <input type="text" name="title" placeholder="What shit do you want done?">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="large-12 columns">
-                        <textarea placeholder="Anything more to say?"></textarea>
+                        <textarea name="more" placeholder="Anything more to say?"></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="large-12 columns">
-                        <a href="#" class="button alert radius">Submit Anonymously</a>
+                        <button class="button alert radius">Submit Anonymously</button>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="large-8 columns results_container">
-            {% for id in range(1, 30) %}
+            {% for post in posts %}
 
-                <div class="row submission" id="{{ id }}">
+                <div class="row submission" id="{{ post.id }}">
 
                     <div class="small-12 columns">
                         <!-- Submission title etc -->
                         <div class="row">
-                            <div class="small-1 columns result">
-                                <div>#{{ id }}</div>
+                            <div class="small-1 columns result hand_cursor">
+                                <div class="anchor" id="{{ post.id }}">#{{ post.id }}</div>
                             </div>
-                            <div class="small-9 columns result">
-                                <div>{{ lipsum(1, False, min=3, max=20)|truncate(150) }}</div>
+                            <div class="small-9 columns result hand_cursor">
+                                <div>{{ post.title }}</div>
                             </div>
                             <div class="small-2 columns">
 
@@ -67,16 +66,31 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Submission text -->
                         <div class="row submission_text hide">
                             <div class="small-12 columns">
-                                {{ lipsum(range(0,3)|random) }}
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                        {{ post.more }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="small-6 end medium-4 column right">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                                           target="_blank" class="right">
+                                            <i class="fi-social-facebook share_icon facebook"></i>
+                                        </a>
+                                        <a href="https://twitter.com/share?url=https%3A%2F%2Fparse.com"
+                                           target="_blank" class="right">
+                                            <i class="fi-social-twitter share_icon twitter"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
 

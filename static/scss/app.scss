@@ -65,10 +65,27 @@ body {
   height: 50px;
 }
 
+.hand_cursor {
+  cursor: pointer;
+  cursor: hand;
+}
+
 .submission .submission_text {
   min-height: 20px
 }
 
+.share_icon {
+  font-size: 30px;
+  margin: 10px;
+}
+
+.facebook {
+  color: #45629E;
+}
+
+.twitter {
+  color: #02ADEE;
+}
 
 .vote_up {
   i {
@@ -77,6 +94,7 @@ body {
 
   color: green;
 }
+
 
 .vote_down {
   i {
