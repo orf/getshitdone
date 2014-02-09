@@ -1,0 +1,56 @@
+<div class="row submission" id="{{ post.id }}">
+    <div class="small-12 columns">
+        <!-- Submission title etc -->
+        <div class="row">
+            <div class="small-1 columns result hand_cursor">
+                <div class="anchor" id="{{ post.id }}">#{{ post.id }}</div>
+            </div>
+            <div class="small-9 columns result hand_cursor">
+                <div>{{ post.title }}</div>
+            </div>
+
+            <div class="small-2 columns">
+                <div class="row">
+                    <div class="large-6 columns">
+                        <form method="POST" action="{{ url_for('upvote', id=post.id) }}" class="vote_form">
+                            <a class="vote_up vote"><i class="fi-arrow-up"></i> {{ post.upvotes }}</a>
+                        </form>
+                    </div>
+
+                    <div class="large-6 columns vote_down">
+                        <form method="POST" action="{{ url_for('downvote', id=post.id) }}" class="vote_form">
+                            <a class="vote_down vote"><i class="fi-arrow-down"></i> {{ post.downvotes }}</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submission text -->
+        <div class="row submission_text hide">
+            <div class="small-12 columns">
+                <div class="row">
+                    <div class="small-12 columns">
+                        <p>{{ post.more }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-8 columns">
+                        Posted at {{ post.added }}
+                    </div>
+                    <div class="small-4 column right">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_post', id=post.id, _external=True)|urlencode }}"
+                           target="_blank" class="right">
+                            <i class="fi-social-facebook share_icon facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/share?url={{ url_for('view_post', id=post.id, _external=True)|urlencode }}"
+                           target="_blank" class="right">
+                            <i class="fi-social-twitter share_icon twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

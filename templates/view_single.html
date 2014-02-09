@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block head %}
+    <!-- Twitter stuff -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ post.title }}">
+    <meta name="twitter:description" content="{{ post.more }}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='img/logo.png') }}">
+
+    <!-- FB stuff -->
+    <meta property="og:title" content="{{ post.title }}"/>
+    <meta property="og:image" content="{{ url_for('static', filename='img/logo.png') }}"/>
+    <!-- <meta property="og:url" content="http://davidwalsh.name/facebook-meta-tags"/> -->
+    <meta property="og:site_name" content="Get Shit Done"/>
+{% endblock %}
+
+{% block results_container %}
+    {% include "view_post.html" %}
+{% endblock %}

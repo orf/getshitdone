@@ -11,6 +11,13 @@
                     submission_text.addClass("hide");
                 }
             });
+
+            $(".vote").on("click", function(ev){
+
+                $(this).parent().submit();
+                ev.preventDefault();
+                ev.stopPropagation();
+            })
         });
     </script>
 {% endblock %}
@@ -40,58 +47,11 @@
         </div>
 
         <div class="large-8 columns results_container">
+        {% block results_container %}
             {% for post in posts %}
-
-                <div class="row submission" id="{{ post.id }}">
-
-                    <div class="small-12 columns">
-                        <!-- Submission title etc -->
-                        <div class="row">
-                            <div class="small-1 columns result hand_cursor">
-                                <div class="anchor" id="{{ post.id }}">#{{ post.id }}</div>
-                            </div>
-                            <div class="small-9 columns result hand_cursor">
-                                <div>{{ post.title }}</div>
-                            </div>
-                            <div class="small-2 columns">
-
-                                <div class="row">
-                                    <div class="large-6 columns vote_up">
-                                        <i class="fi-arrow-up"></i> {{ range(0, 100)|random }}
-                                    </div>
-
-                                    <div class="large-6 columns vote_down">
-                                        <i class="fi-arrow-down"></i> {{ range(0, 100)|random }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Submission text -->
-                        <div class="row submission_text hide">
-                            <div class="small-12 columns">
-                                <div class="row">
-                                    <div class="small-12 columns">
-                                        {{ post.more }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="small-6 end medium-4 column right">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                                           target="_blank" class="right">
-                                            <i class="fi-social-facebook share_icon facebook"></i>
-                                        </a>
-                                        <a href="https://twitter.com/share?url=https%3A%2F%2Fparse.com"
-                                           target="_blank" class="right">
-                                            <i class="fi-social-twitter share_icon twitter"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "view_post.html" %}
             {% endfor %}
+        {% endblock %}
         </div>
 
     </div>

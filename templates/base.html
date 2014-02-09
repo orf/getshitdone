@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts/foundation-icons/foundation-icons.css') }}">
 
     <script src="{{ url_for('static', filename='js/vendor/modernizr.js') }}"></script>
+    {% block head %}{% endblock %}
 </head>
+
 <body>
     <div class="fixed">
         <nav class="top-bar navigation_header" data-topbar>
