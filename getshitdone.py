@@ -1,22 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.kvsession import KVSessionExtension
-from sqlalchemy.ext.hybrid import hybrid_property
-from simplekv.memory import DictStore
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.sql import exists
 import sys
 import logging
 import datetime
+import uuid
 
 app = Flask(__name__)
 app.secret_key = "test"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
+
 file_handler = logging.FileHandler("logs/flask.log")
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
-
-
-KVSessionExtension(DictStore(), app)
 
 
 class Post(db.Model):
@@ -32,22 +31,42 @@ class Post(db.Model):
     poster_ip = db.Column(db.String(16))
     poster_ua = db.Column(db.Text)
 
+    votes = db.relationship("Vote", backref="post", lazy="dynamic")
+
     @hybrid_property
     def score(self):
         return self.upvotes - self.downvotes
 
+    def __repr__(self):
+        return "<Post %s. Up: %s, Down: %s>" % (self.id, self.upvotes, self.downvotes)
+
+
+UPVOTE = 1
+DOWNVOTE = -1
+
+
+class Vote(db.Model):
+    uid = db.Column(db.String(32), primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), primary_key=True)
+    type = db.Column(db.Integer)  # -1: Down, 1: Up
+
+    vote_ip = db.Column(db.String(16))
+    vote_ua = db.Column(db.Text)
+
 
 @app.before_request
 def before_req():
-    if "downvotes" not in session:
-        session["downvotes"] = []
-    if "upvotes" not in session:
-        session["upvotes"] = []
+    if "uid" not in session:
+        session["uid"] = uuid.uuid4().hex
 
 
 @app.route('/')
 def landing_page():
-    return render_template("index.html", posts=Post.query.order_by(Post.score.desc()).all())
+    get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
+    post_query = Post.query.order_by(Post.score.desc())\
+        .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").all()
+
+    return render_template("index.html", posts=post_query, DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE)
 
 
 @app.route("/new", methods=["POST"])
@@ -63,22 +82,39 @@ def new_post():
     return redirect(url_for("landing_page"))
 
 
-@app.route("/<int:id>/upvote", methods=["POST"])
-def upvote(id):
-    post = Post.query.get_or_404(id)
+def vote_post(post, vote_type, uid):
+    try:
+        vote = Vote.query.filter_by(uid=uid, post_id=post.id).one()
+        if vote.type == vote_type:
+            # Do nothing, already voted
+            return
 
-    if id in session["downvotes"]:
-        post.downvotes -= 1
-        session["downvotes"].remove(id)
+        if vote_type == DOWNVOTE:
+            post.upvotes -= 1
+        else:
+            post.downvotes -= 1
 
-    if id in session["upvotes"]:
-        pass
+        vote.type = vote_type
+        db.session.add(vote)
+    except NoResultFound:
+        # Make a new vote
+        vote = Vote(uid=uid, post_id=post.id, type=vote_type,
+                    vote_ip=request.remote_addr, vote_ua=request.headers.get('User-Agent'))
+        db.session.add(vote)
 
-    post.upvotes += 1
+    if vote_type == DOWNVOTE:
+        post.downvotes += 1
+    else:
+        post.upvotes += 1
+
     db.session.add(post)
     db.session.commit()
 
-    session["upvotes"].append(id)
+
+@app.route("/<int:id>/upvote", methods=["POST"])
+def upvote(id):
+    post = Post.query.get_or_404(id)
+    vote_post(post, UPVOTE, session["uid"])
 
     return redirect("/")
 
@@ -86,24 +122,19 @@ def upvote(id):
 @app.route("/<int:id>/downvote", methods=["POST"])
 def downvote(id):
     post = Post.query.get_or_404(id)
-
-    if id in session["upvotes"]:
-        post.upvotes -= 1
-        session["upvotes"].remove(id)
-
-    post.downvotes += 1
-    db.session.add(post)
-    db.session.commit()
-
-    session["downvotes"].append(id)
+    vote_post(post, DOWNVOTE, session["uid"])
 
     return redirect("/")
 
 
 @app.route("/<int:id>")
 def view_post(id):
-    post = Post.query.get_or_404(id)
-    return render_template("view_single.html", post=post)
+
+    get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
+    post = Post.query.order_by(Post.score.desc())\
+        .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").first_or_404()
+
+    return render_template("view_single.html", post=post[0], vote=post[1], DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE)
 
 
 if __name__ == '__main__':

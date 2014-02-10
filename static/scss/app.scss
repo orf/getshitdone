@@ -87,19 +87,27 @@ body {
   color: #02ADEE;
 }
 
-.vote_up {
+.vote {
   i {
     font-size: 30px;
   }
+}
 
+.voted {
+  opacity: 1;
+}
+
+.notvoted {
+  opacity: 0.5;
+}
+
+.vote_up {
+  @extend .vote;
   color: green;
 }
 
 
 .vote_down {
-  i {
-    font-size: 30px;
-  }
-
+  @extend .vote;
   color: red;
 }

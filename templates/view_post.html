@@ -13,13 +13,13 @@
                 <div class="row">
                     <div class="large-6 columns">
                         <form method="POST" action="{{ url_for('upvote', id=post.id) }}" class="vote_form">
-                            <a class="vote_up vote"><i class="fi-arrow-up"></i> {{ post.upvotes }}</a>
+                            <a class="vote_up vote {% if vote == UPVOTE %}voted{% else %}notvoted{% endif %}"><i class="fi-arrow-up"></i> {{ post.upvotes }}</a>
                         </form>
                     </div>
 
                     <div class="large-6 columns vote_down">
                         <form method="POST" action="{{ url_for('downvote', id=post.id) }}" class="vote_form">
-                            <a class="vote_down vote"><i class="fi-arrow-down"></i> {{ post.downvotes }}</a>
+                            <a class="vote_down vote {% if vote == DOWNVOTE %}voted{% else %}notvoted{% endif %}"><i class="fi-arrow-down"></i> {{ post.downvotes }}</a>
                         </form>
                     </div>
                 </div>
@@ -40,6 +40,7 @@
                         Posted at {{ post.added }}
                     </div>
                     <div class="small-4 column right">
+                        <p>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_post', id=post.id, _external=True)|urlencode }}"
                            target="_blank" class="right">
                             <i class="fi-social-facebook share_icon facebook"></i>
@@ -48,6 +49,7 @@
                            target="_blank" class="right">
                             <i class="fi-social-twitter share_icon twitter"></i>
                         </a>
+                        </p>
                     </div>
                 </div>
             </div>
