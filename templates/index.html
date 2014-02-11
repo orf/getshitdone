@@ -24,7 +24,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="large-4 columns">
+        <div class="large-4 hide-for-medium-down columns">
             <form method="POST" action="{{ url_for('new_post') }}">
                 <div class="row">
                     <div class="large-12 columns">
@@ -34,13 +34,13 @@
 
                 <div class="row">
                     <div class="large-12 columns">
-                        <textarea name="more" placeholder="Anything more to say?"></textarea>
+                        <textarea class="more_text" name="more" placeholder="Anything more to say?"></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="large-12 columns">
-                        <button class="button alert radius">Submit Anonymously</button>
+                        <button class="button expand alert radius">Submit Anonymously</button>
                     </div>
                 </div>
             </form>

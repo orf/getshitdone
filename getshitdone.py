@@ -74,10 +74,11 @@ def new_post():
     title = request.form.get("title")
     text = request.form.get("more")
 
-    post = Post(added=datetime.datetime.now(), title=title, more=text,
-                poster_ip=request.remote_addr, poster_ua=request.headers.get('User-Agent'))
-    db.session.add(post)
-    db.session.commit()
+    if title:
+        post = Post(added=datetime.datetime.now(), title=title, more=text,
+                    poster_ip=request.remote_addr, poster_ua=request.headers.get('User-Agent'))
+        db.session.add(post)
+        db.session.commit()
 
     return redirect(url_for("landing_page"))
 
@@ -131,10 +132,19 @@ def downvote(id):
 def view_post(id):
 
     get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
-    post = Post.query.order_by(Post.score.desc())\
+    post = Post.query.filter_by(id=id).order_by(Post.score.desc())\
         .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").first_or_404()
 
     return render_template("view_single.html", post=post[0], vote=post[1], DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE)
+
+
+@app.route("/about_me")
+def about_me():
+    return render_template("about_me.html")
+
+@app.route("/policies")
+def policies():
+    return render_template("policies.html")
 
 
 if __name__ == '__main__':

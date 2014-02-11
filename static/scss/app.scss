@@ -6,6 +6,10 @@ body {
   background-color: #E4FAE3;
 }
 
+.block_text {
+  font-family: Sylfaen;
+}
+
 @font-face {
   font-family: madness;
   src: url("../fonts/madness.ttf");
@@ -37,6 +41,10 @@ body {
     text-transform: uppercase;
     text-align: center;
   }
+}
+
+a {
+  color: #000000;
 }
 
 .center_middle {
@@ -76,7 +84,8 @@ body {
 
 .share_icon {
   font-size: 30px;
-  margin: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .facebook {
@@ -106,8 +115,11 @@ body {
   color: green;
 }
 
-
 .vote_down {
   @extend .vote;
   color: red;
+}
+
+.more_text {
+  height: 150px;
 }

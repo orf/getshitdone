@@ -17,30 +17,30 @@
         <nav class="top-bar navigation_header" data-topbar>
 
             <div class="row">
-                <div class="large-4 medium-1 columns hide-for-medium-down">
+                <div class="large-4 columns hide-for-medium-down">
                     <div class="row">
                         <div class="large-6 columns nav_container">
-                            <p href="#" class="nav_link">Policies</p>
+                            <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
                         </div>
                         <div class="large-6 columns nav_container">
-                            <p href="#" class="nav_link">About Me</p>
+                            <p class="nav_link"><a href="{{ url_for('about_me') }}">About Me</a></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="large-4 medium-10 columns">
+                <div class="large-4 medium-12 columns">
                     <div class="header_text">
-                        Get Shit Done
+                        <a href="{{ url_for('landing_page') }}">Get Shit Done</a>
                     </div>
                 </div>
 
-                <div class="large-4 medium-1 columns hide-for-medium-down">
+                <div class="large-4 columns hide-for-medium-down">
                     <div class="row">
                         <div class="large-6 columns nav_container">
-                            <p href="#" class="nav_link">Facebook</p>
+                            <p class="nav_link"><a href="#">Facebook</a></p>
                         </div>
                         <div class="large-6 columns nav_container">
-                            <p href="#" class="nav_link">Twitter</p>
+                            <p class="nav_link"><a href="#">Twitter</a></p>
                         </div>
                     </div>
                 </div>

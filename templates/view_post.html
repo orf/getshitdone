@@ -36,11 +36,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="small-8 columns">
-                        Posted at {{ post.added }}
-                    </div>
                     <div class="small-4 column right">
-                        <p>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_post', id=post.id, _external=True)|urlencode }}"
                            target="_blank" class="right">
                             <i class="fi-social-facebook share_icon facebook"></i>
@@ -49,7 +45,6 @@
                            target="_blank" class="right">
                             <i class="fi-social-twitter share_icon twitter"></i>
                         </a>
-                        </p>
                     </div>
                 </div>
             </div>
