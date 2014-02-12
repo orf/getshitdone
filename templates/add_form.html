@@ -1,0 +1,27 @@
+<form method="POST" action="{{ url_for('new_post') }}">
+    <div class="row">
+        <div class="large-12 columns">
+            <input type="text" name="title" placeholder="What shit do you want done?">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <textarea class="more_text" name="more" placeholder="Anything more to say?"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <button class="button expand alert radius">Submit Anonymously</button>
+        </div>
+    </div>
+
+    {% if cancel_button %}
+        <div class="row">
+            <div class="large-12 columns">
+                <a href="{{ url_for('landing_page') }}" class="button expand secondary radius">Cancel</a>
+            </div>
+        </div>
+    {% endif %}
+</form>

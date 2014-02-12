@@ -17,30 +17,48 @@
         <nav class="top-bar navigation_header" data-topbar>
 
             <div class="row">
-                <div class="large-4 columns hide-for-medium-down">
-                    <div class="row">
-                        <div class="large-6 columns nav_container">
-                            <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
+                <div class="small-12 columns">
+
+                    <div class="row top-bar-hidddenbg">
+                        <div class="small-3 columns">
+                            <img class="vote_image hide-for-medium-down" src="{{ url_for('static', filename='img/vote.png') }}">
+                            <p></p>
                         </div>
-                        <div class="large-6 columns nav_container">
-                            <p class="nav_link"><a href="{{ url_for('about_me') }}">About Me</a></p>
+                        <div class="small-6 columns">
+                            <img class="header_img centered" src="{{ url_for('static', filename='img/logo.png') }}">
+                        </div>
+                        <div class="small-3 columns">
+                            <p class="vote_header_text hide-for-large-down">Vote George Allen for President 2014</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="large-4 medium-12 columns">
-                    <div class="header_text">
-                        <a href="{{ url_for('landing_page') }}">Get Shit Done</a>
-                    </div>
-                </div>
-
-                <div class="large-4 columns hide-for-medium-down">
-                    <div class="row">
-                        <div class="large-6 columns nav_container">
-                            <p class="nav_link"><a href="#">Facebook</a></p>
+                    <div class="row top-bar-colour">
+                        <div class="large-4 columns hide-for-medium-down">
+                            <div class="row">
+                                <div class="large-6 columns nav_container">
+                                    <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
+                                </div>
+                                <div class="large-6 columns nav_container">
+                                    <p class="nav_link"><a href="{{ url_for('about_me') }}">About Me</a></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="large-6 columns nav_container">
-                            <p class="nav_link"><a href="#">Twitter</a></p>
+
+                        <div class="large-4 medium-12 columns">
+                            <div class="header_text">
+                                <a href="{{ url_for('landing_page') }}">Get Shit Done</a>
+                            </div>
+                        </div>
+
+                        <div class="large-4 columns hide-for-medium-down">
+                            <div class="row">
+                                <div class="large-6 columns nav_container">
+                                    <p class="nav_link"><a href="#">Facebook</a></p>
+                                </div>
+                                <div class="large-6 columns nav_container">
+                                    <p class="nav_link"><a href="#">Twitter</a></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +72,18 @@
         </div>
     </div>
 
+    {% block footer %}
+        <div class="footer">
+            <div class="footer_expand">
+            </div>
 
+            <div class="fixed_footer">
+                <p class="hide-for-large-up">
+                    <a href="{{ url_for('add_mobile') }}" class="button expand alert">Add your own</a>
+                </p>
+            </div>
+        </div>
+    {% endblock %}
 
     <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>

@@ -3,7 +3,7 @@
 {% block tail %}
     <script>
         $(document).ready(function(){
-            $(".submission").on("click", function(){
+            $(".submission").click(function(){
                 var submission_text = $(this).find(".submission_text");
                 if (submission_text.hasClass("hide")) {
                     submission_text.removeClass("hide");
@@ -12,38 +12,19 @@
                 }
             });
 
-            $(".vote").on("click", function(ev){
-
+            $(".vote").click(function(ev){
                 $(this).parent().submit();
                 ev.preventDefault();
                 ev.stopPropagation();
-            })
+            });
         });
     </script>
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="large-4 hide-for-medium-down columns">
-            <form method="POST" action="{{ url_for('new_post') }}">
-                <div class="row">
-                    <div class="large-12 columns">
-                        <input type="text" name="title" placeholder="What shit do you want done?">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="large-12 columns">
-                        <textarea class="more_text" name="more" placeholder="Anything more to say?"></textarea>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="large-12 columns">
-                        <button class="button expand alert radius">Submit Anonymously</button>
-                    </div>
-                </div>
-            </form>
+        <div id="add_form" class="large-4 hide-for-medium-down columns">
+            {% include "add_form.html"%}
         </div>
 
         <div class="large-8 columns results_container">

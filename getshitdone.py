@@ -146,6 +146,10 @@ def about_me():
 def policies():
     return render_template("policies.html")
 
+@app.route("/add")
+def add_mobile():
+    return render_template("submit_mobile.html")
+
 
 if __name__ == '__main__':
     try:

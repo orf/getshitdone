@@ -1,9 +1,19 @@
 @import "settings";
 @import "foundation";
+@import "compass/layout/sticky-footer";
+@import "compass/css3/transform";
+
+
+@include sticky-footer(50px);
+
+$background-colour: #E4FAE3;
+$footer-height: 50px;
+$header-img-height: 175px;
+$header-font-size: 50px;
 
 
 body {
-  background-color: #E4FAE3;
+  background-color: $background-colour;
 }
 
 .block_text {
@@ -15,10 +25,32 @@ body {
   src: url("../fonts/madness.ttf");
 }
 
-.header_logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+/* Fixed footer */
+.footer {
+  @media #{$small-only}, #{$medium-only} {
+    .footer_expand {
+      height:$footer-height;
+    }
+
+    .fixed_footer {
+      position: fixed;
+      left:0px;
+      bottom:0px;
+      height:$footer-height;
+      width: 100%;
+      background: #999;
+    }
+  }
+}
+
+/* Header stuff */
+
+.vote_image {
+  //@include rotate(-30deg);
+  position: absolute;
+  top:0;
+  left:0;
+  height: $header-img-height - 25px;
 }
 
 .navigation_header {
@@ -27,7 +59,11 @@ body {
 
 .navigation_header .header_text {
   text-align: center;
-  font-size: 50px;
+  font-size: $header-font-size;
+
+  @media #{$small-only} {
+    font-size: $header-font-size / 2;
+  }
 }
 
 .navigation_header .nav_link {
@@ -36,15 +72,11 @@ body {
   text-align: center;
   margin-bottom: 0;
 
-  @media #{$small-only} {
+  @media #{$small-only}, #{$medium-only} {
     font-size: 25px;
     text-transform: uppercase;
     text-align: center;
   }
-}
-
-a {
-  color: #000000;
 }
 
 .center_middle {
@@ -52,9 +84,43 @@ a {
   vertical-align: middle;
 }
 
+a {
+  color: #000000;
+}
+
 .navigation_header .nav_container {
   @extend .center_middle;
 }
+
+.top-bar {
+  line-height: inherit;
+  background-color: inherit;
+  height: auto;
+}
+
+.top-bar-colour {
+  background-color: rgb(136, 224, 133);
+  border-style: solid;
+  border-width: 1px;
+}
+
+.top-bar-hidddenbg {
+  background-color: $background-colour;
+}
+
+.header_img {
+  height: $header-img-height;
+
+  @media #{$small-only} {
+    height: 75px;
+  }
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Main content and results stuff */
 
 .main_content {
   margin-top: 20px;
