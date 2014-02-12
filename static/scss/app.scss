@@ -134,7 +134,7 @@ a {
   background-color: #D7EBD6;
 }
 
-.result div {
+.result p {
   @extend .center_middle;
   height: 50px;
 }
@@ -150,8 +150,12 @@ a {
 
 .share_icon {
   font-size: 30px;
-  margin-right: 10px;
-  margin-left: 10px;
+
+  @media #{$small-only} {
+    font-size: 25px;
+  }
+  //margin-right: 10px;
+  //margin-left: 10px;
 }
 
 .facebook {
