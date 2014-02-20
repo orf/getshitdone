@@ -88,8 +88,10 @@
     <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.scrollomatic.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form-validator/jquery.form-validator.min.js') }}"></script>
     <script>
         $(document).foundation();
+        $.validate();
     </script>
 
     {% block tail %}

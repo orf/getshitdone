@@ -1,13 +1,23 @@
-<form method="POST" action="{{ url_for('new_post') }}">
+<form method="POST" action="{{ url_for('new_post') }}{% if mobile %}?mobile=1{% endif %}">
+    {{ form.hidden_tag() }}
+
     <div class="row">
         <div class="large-12 columns">
-            <input type="text" name="title" placeholder="What shit do you want done?">
+            <label class="error" {% if form.title.errors %}style="margin-bottom: 0"{% endif %}>
+                {{ form.title(placeholder="What shit do you want done?", class="error" if form.title.errors else "") }}
+            </label>
+            {% if True %}
+                {% for error in form.title.errors %}
+                    <small class="error" {% if not loop.last %}style="margin-bottom: 0"{% endif %}>{{ error }}</small>
+                {% endfor %}
+
+            {% endif %}
         </div>
     </div>
 
     <div class="row">
         <div class="large-12 columns">
-            <textarea class="more_text" name="more" placeholder="Anything more to say?"></textarea>
+            {{ form.more_info(placeholder="Anything more to say?") }}
         </div>
     </div>
 

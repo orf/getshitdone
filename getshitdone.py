@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from flask_wtf.csrf import CsrfProtect
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.sql import exists
+from flask_wtf import Form
+from wtforms import TextField, TextAreaField
+from wtforms.validators import Length, DataRequired
 import sys
 import logging
 import datetime
@@ -12,10 +15,16 @@ app = Flask(__name__)
 app.secret_key = "test"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
+CsrfProtect(app)
 
 file_handler = logging.FileHandler("logs/flask.log")
 file_handler.setLevel(logging.WARNING)
 app.logger.addHandler(file_handler)
+
+
+class PostForm(Form):
+    title = TextField('title', validators=[DataRequired(), Length(min=10, max=120)])
+    more_info = TextAreaField('more_info')
 
 
 class Post(db.Model):
@@ -61,26 +70,30 @@ def before_req():
 
 
 @app.route('/')
-def landing_page():
+def landing_page(form=None):
     get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
     post_query = Post.query.order_by(Post.score.desc())\
         .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").all()
 
-    return render_template("index.html", posts=post_query, DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE)
+    return render_template("index.html", posts=post_query, DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE, form=form or PostForm())
 
 
-@app.route("/new", methods=["POST"])
+@app.route("/new", methods=("POST", "GET"))
 def new_post():
-    title = request.form.get("title")
-    text = request.form.get("more")
-
-    if title:
-        post = Post(added=datetime.datetime.now(), title=title, more=text,
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(added=datetime.datetime.now(), title=form.title.data, more=form.more_info.data,
                     poster_ip=request.remote_addr, poster_ua=request.headers.get('User-Agent'))
         db.session.add(post)
         db.session.commit()
+    else:
+        if request.args.get("mobile", False):
+            print form.title.errors
+            return add_mobile(form)
+        else:
+            return landing_page(form)
 
-    return redirect(url_for("landing_page"))
+    return redirect(url_for('landing_page'))
 
 
 def vote_post(post, vote_type, uid):
@@ -130,7 +143,6 @@ def downvote(id):
 
 @app.route("/<int:id>")
 def view_post(id):
-
     get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
     post = Post.query.filter_by(id=id).order_by(Post.score.desc())\
         .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").first_or_404()
@@ -147,8 +159,8 @@ def policies():
     return render_template("policies.html")
 
 @app.route("/add")
-def add_mobile():
-    return render_template("submit_mobile.html")
+def add_mobile(form=None):
+    return render_template("submit_mobile.html", form=form or PostForm())
 
 
 if __name__ == '__main__':

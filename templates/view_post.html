@@ -10,12 +10,14 @@
                 <div class="row">
                     <div class="small-6 columns">
                         <form method="POST" action="{{ url_for('upvote', id=post.id) }}" class="vote_form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                             <a class="vote_up vote {% if vote == UPVOTE %}voted{% else %}notvoted{% endif %}"><i class="fi-arrow-up"></i> {{ post.upvotes }}</a>
                         </form>
                     </div>
 
                     <div class="small-6 columns vote_down">
                         <form method="POST" action="{{ url_for('downvote', id=post.id) }}" class="vote_form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                             <a class="vote_down vote {% if vote == DOWNVOTE %}voted{% else %}notvoted{% endif %}"><i class="fi-arrow-down"></i> {{ post.downvotes }}</a>
                         </form>
                     </div>

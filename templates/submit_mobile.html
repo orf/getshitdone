@@ -2,7 +2,9 @@
 
 {% block content %}
     {% with cancel_button=True %}
-        {% include "add_form.html" %}
+        {% with mobile=True %}
+            {% include "add_form.html" %}
+        {% endwith %}
     {% endwith %}
 {% endblock %}
 
