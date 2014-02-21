@@ -49,6 +49,10 @@ body {
 
 /* Header stuff */
 
+.vote_header_text {
+  margin-bottom: 0;
+}
+
 .vote_image {
   //@include rotate(-30deg);
   position: absolute;

@@ -22,13 +22,16 @@
                     <div class="row top-bar-hidddenbg">
                         <div class="small-3 columns">
                             <img class="vote_image hide-for-medium-down" src="{{ url_for('static', filename='img/vote.png') }}">
-                            <p></p>
+                            <p class="vote_header_text show-for-small-only">Vote George Allen</p>
+                            <p class="hide-for-small-only"></p>
                         </div>
                         <div class="small-6 columns">
-                            <img class="header_img centered" src="{{ url_for('static', filename='img/logo.png') }}">
+                            <a href="{{ url_for('landing_page') }}">
+                                <img class="header_img centered" src="{{ url_for('static', filename='img/logo.png') }}">
+                            </a>
                         </div>
                         <div class="small-3 columns">
-                            <p class="vote_header_text hide-for-large-down">Vote George Allen for President 2014</p>
+
                         </div>
                     </div>
 
