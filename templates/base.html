@@ -33,33 +33,53 @@
                     </div>
 
                     <div class="row top-bar-colour">
-                        <div class="large-4 columns hide-for-medium-down">
-                            <div class="row">
-                                <div class="large-6 columns nav_container">
-                                    <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="medium-4 columns hide-for-small-only">
+                                    <div class="row">
+                                        <div class="large-6 columns nav_container">
+                                            <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
+                                        </div>
+                                        <div class="large-6 columns nav_container">
+                                            <p class="nav_link"><a href="{{ url_for('about_me') }}">About Me</a></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="large-6 columns nav_container">
-                                    <p class="nav_link"><a href="{{ url_for('about_me') }}">About Me</a></p>
+
+                                <div class="medium-4 small-12 columns">
+                                    <div class="header_text">
+                                        <a href="{{ url_for('landing_page') }}">Get Shit Done</a>
+                                    </div>
+                                </div>
+
+                                <div class="medium-4 columns  hide-for-small-only">
+                                    <div class="row">
+                                        <div class="large-6 columns nav_container">
+                                            <p class="nav_link"><a href="http://www.facebook.com/long.live.morrissey">Facebook</a></p>
+                                        </div>
+                                        <div class="large-6 columns nav_container">
+                                            <p class="nav_link"><a href="http://twitter.com/georgejallen">Twitter</a></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="large-4 medium-12 columns">
-                            <div class="header_text">
-                                <a href="{{ url_for('landing_page') }}">Get Shit Done</a>
+                        <div class="row collapse show-for-small-only">
+                            <div class="small-3 columns">
+                                <p class="nav_link"><a href="{{ url_for('policies') }}">Policies</a></p>
+                            </div>
+                            <div class="small-3 columns">
+                                <p class="nav_link"><a href="{{ url_for('about_me') }}">About</a></p>
+                            </div>
+                            <div class="small-3 columns">
+                                <p class="nav_link"><a href="http://www.facebook.com/long.live.morrissey">Facebook</a></p>
+                            </div>
+                            <div class="small-3 columns">
+                                <p class="nav_link"><a href="http://twitter.com/georgejallen">Twitter</a></p>
                             </div>
                         </div>
 
-                        <div class="large-4 columns hide-for-medium-down">
-                            <div class="row">
-                                <div class="large-6 columns nav_container">
-                                    <p class="nav_link"><a href="http://www.facebook.com/long.live.morrissey">Facebook</a></p>
-                                </div>
-                                <div class="large-6 columns nav_container">
-                                    <p class="nav_link"><a href="http://twitter.com/georgejallen">Twitter</a></p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

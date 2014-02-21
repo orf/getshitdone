@@ -61,7 +61,7 @@ body {
   font-family: madness;
 }
 
-.navigation_header .header_text {
+.navigation_header {
   text-align: center;
   font-size: $header-font-size;
 
@@ -76,10 +76,12 @@ body {
   text-align: center;
   margin-bottom: 0;
 
-  @media #{$small-only}, #{$medium-only} {
+  @media #{$small-only} {
+    font-size: 15px;
+  }
+
+  @media #{$medium-only} {
     font-size: 25px;
-    text-transform: uppercase;
-    text-align: center;
   }
 }
 
