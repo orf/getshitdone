@@ -17,6 +17,15 @@
                 ev.preventDefault();
                 ev.stopPropagation();
             });
+
+            {% if session.a %}
+                $(".del").click(function(ev){
+                    $(this).parent().parent().submit();
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                });
+
+            {% endif %}
         });
     </script>
 {% endblock %}

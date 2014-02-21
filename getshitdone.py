@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, Response
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CsrfProtect
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -16,6 +16,8 @@ app.secret_key = "Z<\xe7`W\x03\xda\xd5p\x8ab\xfe\x05O\x00\xcc\xa2\xf9\x04e\xfeSg
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://getshitdone:password@localhost:5432/getshitdone'
 db = SQLAlchemy(app)
 CsrfProtect(app)
+
+ADMIN_PASSWORD = "Qw9EN3nd"
 
 file_handler = logging.FileHandler("logs/flask.log")
 file_handler.setLevel(logging.WARNING)
@@ -67,6 +69,31 @@ class Vote(db.Model):
 def before_req():
     if "uid" not in session:
         session["uid"] = uuid.uuid4().hex
+    if "a" not in session:
+        session["a"] = False
+
+
+@app.route("/admin")
+def login_as_admin():
+    auth = request.authorization
+    if auth and auth.password == ADMIN_PASSWORD:
+        session["a"] = True
+    else:
+        return Response(
+    'Could not verify your access level for that URL.\n'
+    'You have to login with proper credentials', 401,
+    {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+    return redirect(url_for("landing_page"))
+
+
+@app.route("/delete/<int:id>", methods=["POST"])
+def delete_post(id):
+    post = Post.query.get_or_404(id)
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(url_for("landing_page"))
 
 
 @app.route('/')
@@ -112,8 +139,9 @@ def vote_post(post, vote_type, uid):
         db.session.add(vote)
     except NoResultFound:
         # Make a new vote
+        ips = request.access_route
         vote = Vote(uid=uid, post_id=post.id, type=vote_type,
-                    vote_ip=request.remote_addr, vote_ua=request.headers.get('User-Agent'))
+                    vote_ip=ips[0], vote_ua=request.headers.get('User-Agent'))
         db.session.add(vote)
 
     if vote_type == DOWNVOTE:
