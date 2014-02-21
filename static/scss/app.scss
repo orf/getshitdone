@@ -18,15 +18,10 @@ body {
 }
 
 .block_text {
-  font-family: madness;
+  font-family: '8-bit_madnessregular';
   p {
     font-size: 22px;
   }
-}
-
-@font-face {
-  font-family: madness;
-  src: url("../fonts/madness.ttf");
 }
 
 /* Fixed footer */
@@ -62,7 +57,7 @@ body {
 }
 
 .navigation_header {
-  font-family: madness;
+  font-family: '8-bit_madnessregular';
 }
 
 .navigation_header {
