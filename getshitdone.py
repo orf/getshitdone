@@ -12,8 +12,8 @@ import datetime
 import uuid
 
 app = Flask(__name__)
-app.secret_key = "test"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.secret_key = "Z<\xe7`W\x03\xda\xd5p\x8ab\xfe\x05O\x00\xcc\xa2\xf9\x04e\xfeSg{"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://getshitdone:password@localhost:5432/getshitdone'
 db = SQLAlchemy(app)
 CsrfProtect(app)
 
