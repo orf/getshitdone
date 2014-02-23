@@ -13,6 +13,15 @@
             });
 
             $(".vote").click(function(ev){
+
+                if (typeof ga != "undefined"){
+                    if ($(this).hasClass("vote_up")){
+                        ga('send', 'vote', 'up');
+                    }else {
+                        ga('send', 'vote', 'down');
+                    }
+                }
+
                 $(this).parent().submit();
                 ev.preventDefault();
                 ev.stopPropagation();
