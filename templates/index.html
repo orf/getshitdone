@@ -16,13 +16,22 @@
 
                 if (typeof ga != "undefined"){
                     if ($(this).hasClass("vote_up")){
-                        ga('send', 'vote', 'up');
+                        ga('send', 'vote', 'up', {
+                            'hitCallback': function() {
+                                $(this).parent().submit();
+                            }
+                        });
                     }else {
-                        ga('send', 'vote', 'down');
+                        ga('send', 'vote', 'down', {
+                            'hitCallback': function() {
+                                $(this).parent().submit();
+                            }
+                        });
                     }
+                } else {
+                    $(this).parent().submit();
                 }
 
-                $(this).parent().submit();
                 ev.preventDefault();
                 ev.stopPropagation();
             });
