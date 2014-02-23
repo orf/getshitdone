@@ -42,7 +42,7 @@ class Post(db.Model):
     poster_ip = db.Column(db.String(16))
     poster_ua = db.Column(db.Text)
 
-    votes = db.relationship("Vote", backref="post", lazy="dynamic")
+    votes = db.relationship("Vote", backref="post", cascade="all,delete", lazy="dynamic")
 
     @hybrid_property
     def score(self):
