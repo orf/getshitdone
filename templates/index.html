@@ -19,15 +19,11 @@
                 if (typeof ga != "undefined"){
                     if ($(this).hasClass("vote_up")){
                         ga('send', 'vote', 'up', {
-                            'hitCallback': function() {
-                                form.submit();
-                            }
+                            'hitCallback': form.submit
                         });
                     }else {
                         ga('send', 'vote', 'down', {
-                            'hitCallback': function() {
-                                form.submit();
-                            }
+                            'hitCallback': form.submit
                         });
                     }
                 } else {
