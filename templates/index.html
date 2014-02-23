@@ -18,12 +18,24 @@
 
                 if (typeof ga != "undefined"){
                     if ($(this).hasClass("vote_up")){
-                        ga('send', 'vote', 'up', {
-                            'hitCallback': form.submit
+                        ga('send', {
+                            'hitType': 'event',
+                            'eventCategory': 'vote',
+                            'eventAction': 'up',
+                            'hitCallback': function() {
+                                console.log("Voted");
+                                form.submit();
+                            }
                         });
                     }else {
-                        ga('send', 'vote', 'down', {
-                            'hitCallback': form.submit
+                        ga('send', {
+                            'hitType': 'event',
+                            'eventCategory': 'vote',
+                            'eventAction': 'down',
+                            'hitCallback': function() {
+                                console.log("Voted");
+                                form.submit();
+                            }
                         });
                     }
                 } else {
