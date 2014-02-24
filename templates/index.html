@@ -12,6 +12,22 @@
                 }
             });
 
+            $(".facebook").click(function(ev){
+                ga('send', {
+                    'hitType': 'event',
+                    'eventCategory': 'share',
+                    'eventAction': 'facebook'
+                });
+            });
+
+            $(".twitter").click(function(ev){
+                ga('send', {
+                    'hitType': 'event',
+                    'eventCategory': 'share',
+                    'eventAction': 'twitter'
+                });
+            });
+
             $(".vote").click(function(ev){
 
                 var form = $(this).parent();

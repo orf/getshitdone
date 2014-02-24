@@ -175,7 +175,7 @@ def view_post(id):
     post = Post.query.filter_by(id=id).order_by(Post.score.desc())\
         .outerjoin(get_vote, Post.id == get_vote.c.post_id).add_column("vote_type").first_or_404()
 
-    return render_template("view_single.html", post=post[0], vote=post[1], DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE,form=PostForm())
+    return render_template("view_single.html", post=post[0], vote=post[1], DOWNVOTE=DOWNVOTE, UPVOTE=UPVOTE, form=PostForm())
 
 
 @app.route("/about_me")
