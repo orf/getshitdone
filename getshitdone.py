@@ -153,7 +153,7 @@ def vote_post(post, vote_type, uid):
     db.session.commit()
 
 
-@app.route("/<int:id>/upvote", methods=["POST"])
+@app.route("/view/<int:id>/upvote", methods=["POST"])
 def upvote(id):
     post = Post.query.get_or_404(id)
     vote_post(post, UPVOTE, session["uid"])
@@ -161,7 +161,7 @@ def upvote(id):
     return redirect("/#%s" % post.id)
 
 
-@app.route("/<int:id>/downvote", methods=["POST"])
+@app.route("/view/<int:id>/downvote", methods=["POST"])
 def downvote(id):
     post = Post.query.get_or_404(id)
     vote_post(post, DOWNVOTE, session["uid"])
@@ -169,7 +169,7 @@ def downvote(id):
     return redirect("/#%s" % post.id)
 
 
-@app.route("/<int:id>")
+@app.route("/view/<int:id>")
 def view_post(id):
     get_vote = db.session.query(Vote.post_id, Vote.type.label('vote_type')).filter_by(uid=session["uid"]).subquery()
     post = Post.query.filter_by(id=id).order_by(Post.score.desc())\
