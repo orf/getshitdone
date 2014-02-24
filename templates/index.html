@@ -16,24 +16,22 @@
 
                 var form = $(this).parent();
 
-                if (typeof ga != "undefined"){
+                if (typeof ga.getByName != "undefined"){
                     if ($(this).hasClass("vote_up")){
                         ga('send', {
                             'hitType': 'event',
                             'eventCategory': 'vote',
                             'eventAction': 'up',
                             'hitCallback': function() {
-                                console.log("Voted");
                                 form.submit();
                             }
                         });
-                    }else {
+                    } else {
                         ga('send', {
                             'hitType': 'event',
                             'eventCategory': 'vote',
                             'eventAction': 'down',
                             'hitCallback': function() {
-                                console.log("Voted");
                                 form.submit();
                             }
                         });
@@ -52,8 +50,17 @@
                     ev.preventDefault();
                     ev.stopPropagation();
                 });
-
             {% endif %}
+
+            if (window.location.hash){
+                // Scroll to the element
+                window.setTimeout(function(){
+                    var post_id = window.location.hash.substring(1);
+                    $('html, body').animate({
+                        scrollTop: $("#post_" + post_id).offset().top - $(".top-bar").height() - 10
+                    }, 0);
+                }, 500)
+            }
         });
     </script>
 {% endblock %}

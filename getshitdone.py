@@ -158,7 +158,7 @@ def upvote(id):
     post = Post.query.get_or_404(id)
     vote_post(post, UPVOTE, session["uid"])
 
-    return redirect("/")
+    return redirect("/#%s" % post.id)
 
 
 @app.route("/<int:id>/downvote", methods=["POST"])
@@ -166,7 +166,7 @@ def downvote(id):
     post = Post.query.get_or_404(id)
     vote_post(post, DOWNVOTE, session["uid"])
 
-    return redirect("/")
+    return redirect("/#%s" % post.id)
 
 
 @app.route("/<int:id>")
