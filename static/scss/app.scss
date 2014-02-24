@@ -44,6 +44,19 @@ body {
 
 /* Header stuff */
 
+.bigass_name {
+  @media #{$small-only} {
+    font-size: 30px;
+  }
+  @media #{$medium-only} {
+    font-size: 50px;
+  }
+  @media #{$large-up} {
+    font-size: 40px;
+    text-align: center;
+  }
+}
+
 .vote_header_text {
   margin-bottom: 0;
 }
@@ -54,6 +67,7 @@ body {
   top:0;
   left:0;
   height: $header-img-height - 25px;
+  z-index: 99999;
 }
 
 .navigation_header {
