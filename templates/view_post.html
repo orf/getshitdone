@@ -3,8 +3,7 @@
         <!-- Submission title etc -->
         <div class="row" id="#{{ post.id }}">
             <div class="small-9 medium-10 columns result hand_cursor">
-                <p>{{ post.title }}</p>
-                <p class="expand_icon_container"><img src="{{ url_for('static', filename='img/arrow_down.png') }}"></p>
+                <p>{{ post.title }} <img class="expand_icon" src="{{ url_for('static', filename='img/arrow_down.png') }}"></p>
             </div>
 
             <div class="small-3 medium-2 columns">
