@@ -15,5 +15,7 @@
 {% endblock %}
 
 {% block results_container %}
-    {% include "view_post.html" %}
+    {% with view_single=True %}
+        {% include "view_post.html" %}
+    {% endwith %}
 {% endblock %}
