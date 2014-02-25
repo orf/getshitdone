@@ -16,7 +16,6 @@ app.secret_key = "Z<\xe7`W\x03\xda\xd5p\x8ab\xfe\x05O\x00\xcc\xa2\xf9\x04e\xfeSg
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://getshitdone:password@localhost:5432/getshitdone'
 db = SQLAlchemy(app)
 CsrfProtect(app)
-session.permanent = True
 
 ADMIN_PASSWORD = "Qw9EN3nd"
 
@@ -68,6 +67,7 @@ class Vote(db.Model):
 
 @app.before_request
 def before_req():
+    session.permanent = True
     if "uid" not in session:
         session["uid"] = uuid.uuid4().hex
     if "a" not in session:
