@@ -44,15 +44,14 @@ body {
 
 /* Header stuff */
 
-p {
-  line-height: 22px;
-}
-
 .bigass_vote {
   @media #{$small-only}{
     font-size: 22px;
   }
-  font-size: 40px;
+  @media #{$medium-only}{
+    font-size: 40px;
+  }
+  line-height: 22px;
 }
 
 .bigass_name {
