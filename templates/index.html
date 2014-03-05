@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block tail %}
+{% block tail2 %}
     <script>
         $(document).ready(function(){
             $(".submission").click(function(){
@@ -88,11 +88,7 @@
         </div>
 
         <div class="large-8 columns results_container">
-        {% block results_container %}
-            {% for post, vote in posts %}
-                {% include "view_post.html" %}
-            {% endfor %}
-        {% endblock %}
+            <h1>This site has been shut down by the HUU</h1>
         </div>
 
     </div>
